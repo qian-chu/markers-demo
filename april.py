@@ -8,7 +8,7 @@ from pupil_labs.realtime_api.simple import Device
 
 from _helper_functions import draw_markers, end_exp, send_event
 
-DUMMY = True  # Set to False when running with Pupil Labs
+DUMMY = False  # Set to False when running with Pupil Labs
 
 # Generate default address using local machine's IP
 full_address = socket.gethostbyname(socket.gethostname())
