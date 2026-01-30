@@ -118,7 +118,7 @@ def draw_markers(
         positions_to_draw = [all_positions[i] for i in (0, 2, 4, 6)]
     elif n_markers == 6:
         # corners + side middles (ML, MR)
-        positions_to_draw = [all_positions[i] for i in (0, 2, 7, 3, 6, 4)]
+        positions_to_draw = [all_positions[i] for i in (0, 2, 3, 4, 6, 7)]
     else:
         positions_to_draw = all_positions
 
