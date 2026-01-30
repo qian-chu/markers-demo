@@ -18,13 +18,18 @@ def marker_family_to_dict(marker_family: str) -> cv2.aruco.Dictionary:
     size-denominator pairs (e.g., '36h10'), while Aruco markers use sizexnumber
     format (e.g., '6x6_250').
     """
-    # Check for AprilTag markers
+    # AprilTags
     if marker_family in APRILTAG_FAMILIES:
         dict_name: str = f"DICT_APRILTAG_{marker_family.upper()}"
         aruco_dict = cv2.aruco.getPredefinedDictionary(getattr(cv2.aruco, dict_name))
         return "april", aruco_dict
 
-    # Check for Aruco markers (format: {size}_{number})
+    # ArUco Original
+    if marker_family.lower() == "aruco_original":
+        aruco_dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_ARUCO_ORIGINAL)
+        return "aruco", aruco_dict
+
+    # Other ArUco (format: {size}_{number})
     aruco_pattern = re.compile(r"^(\d+)x\1_(\d+)$")
     pattern_match = aruco_pattern.match(marker_family)
 
@@ -80,19 +85,21 @@ def generate_marker(
     return img
 
 
-def draw_markers(win, marker_family="36h11", n_markers=4, size=200, opacity=0.75):
+def draw_markers(
+    win, marker_family="36h11", n_markers=4, size=200, opacity=0.75, margin=50
+):
     win_half_width, win_half_height = win.size / 2
     half_marker_size = size / 2
 
     x_positions = (
-        -win_half_width + half_marker_size,
+        -win_half_width + half_marker_size + margin,
         0,
-        win_half_width - half_marker_size,
+        win_half_width - half_marker_size - margin,
     )
     y_positions = (
-        win_half_height - half_marker_size,
+        win_half_height - half_marker_size - margin,
         0,
-        -win_half_height + half_marker_size,
+        -win_half_height + half_marker_size + margin,
     )
     # Clockwise order starting at top-left, excluding center
     order_indices = [

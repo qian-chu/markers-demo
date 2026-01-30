@@ -58,7 +58,7 @@ img_paths = list(stimuli_dir.glob("*.jpg"))
 shuffle(img_paths)
 
 # Start experiment
-draw_markers(win, "5x5_250", 6)
+draw_markers(win, "5x5_250", 4)
 text_stim.draw()
 win.flip()
 event.waitKeys(keyList=["space"])
